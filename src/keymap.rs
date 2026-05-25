@@ -490,31 +490,13 @@ pub fn space_editor_keymap_legend_config() -> KeymapLegendConfig {
         title: "Editor".to_string(),
 
         keymap: Keymap::new(&[
-            Keybinding::new_undocumented(
-                key!("x"),
-                "Replace all",
-                Dispatch::Replace {
-                    scope: Scope::Global,
-                },
-            ),
-            Keybinding::new_undocumented(
-                key!("enter"),
-                "Force Save",
-                Dispatch::ToEditor(DispatchEditor::ForceSave),
-            ),
-            Keybinding::new_undocumented(key!("c"), "Save All", Dispatch::SaveAll),
-            Keybinding::new_undocumented(key!("q"), "Quit No Save", Dispatch::QuitNoSave),
-            Keybinding::new_undocumented(key!("v"), "Quit", Dispatch::SafeQuit),
-            Keybinding::new_undocumented(
-                key!("f"),
-                "Change Work Dir",
-                Dispatch::OpenChangeWorkingDirectoryPrompt,
-            ),
-            Keybinding::new_undocumented(
-                key!("d"),
-                "Reload File",
-                Dispatch::ToEditor(ReloadFile { force: false }),
-            ),
+            Keybinding::from_static(key!("x"), "Replace all"),
+            Keybinding::from_static(key!("enter"), "Force Save"),
+            Keybinding::from_static(key!("c"), "Save All"),
+            Keybinding::from_static(key!("q"), "Quit No Save"),
+            Keybinding::from_static(key!("v"), "Quit"),
+            Keybinding::from_static(key!("f"), "Change Work Dir"),
+            Keybinding::from_static(key!("d"), "Reload File"),
         ]),
     }
 }

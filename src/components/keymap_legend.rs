@@ -4,8 +4,9 @@ use my_proc_macros::key;
 use std::borrow::Cow;
 
 use crate::{
-    app::{Dispatch, Dispatches},
+    app::{Dispatch, Dispatches, Scope},
     components::{
+        editor::DispatchEditor,
         editor_keymap::{CombinedKeyEvent, KeyboardLayout},
         editor_keymap_printer::KeymapDisplayOption,
     },
@@ -152,7 +153,7 @@ impl KeymapLegendConfig {
 #[derive(Debug, Clone, PartialEq)]
 pub struct Keybinding {
     event: KeyEvent,
-    action: KeybindingAction,
+    action: Cow<'static, KeybindingAction>,
 }
 
 #[derive(Debug, Clone, PartialEq)]
@@ -163,14 +164,21 @@ pub struct KeybindingAction {
 }
 
 impl Keybinding {
+    pub const fn from_static(event: KeyEvent, name: &'static str) -> Keybinding {
+        Keybinding {
+            event,
+            action: Cow::Borrowed(action(name)),
+        }
+    }
+
     pub fn new_undocumented(event: KeyEvent, name: &'static str, dispatch: Dispatch) -> Keybinding {
         Keybinding {
             event,
-            action: KeybindingAction {
+            action: Cow::Owned(KeybindingAction {
                 documentation: None,
                 name: name.into(),
                 dispatch,
-            },
+            }),
         }
     }
 
@@ -182,22 +190,22 @@ impl Keybinding {
     ) -> Keybinding {
         Keybinding {
             event,
-            action: KeybindingAction {
+            action: Cow::Owned(KeybindingAction {
                 documentation: Some(doc),
                 name: name.into(),
                 dispatch,
-            },
+            }),
         }
     }
 
     pub fn new_dynamic(event: KeyEvent, name: String, dispatch: Dispatch) -> Keybinding {
         Keybinding {
             event,
-            action: KeybindingAction {
+            action: Cow::Owned(KeybindingAction {
                 documentation: None,
                 name: name.into(),
                 dispatch,
-            },
+            }),
         }
     }
 
@@ -211,11 +219,11 @@ impl Keybinding {
     ) -> Keybinding {
         Keybinding {
             event,
-            action: KeybindingAction {
+            action: Cow::Owned(KeybindingAction {
                 name: name.into(),
                 documentation: None,
                 dispatch: Dispatch::ShowAppMomentaryLayer(config, ReleaseKey::new(event, on_tap)),
-            },
+            }),
         }
     }
 
@@ -229,11 +237,11 @@ impl Keybinding {
     ) -> Keybinding {
         Keybinding {
             event,
-            action: KeybindingAction {
+            action: Cow::Owned(KeybindingAction {
                 name: name.into(),
                 documentation: None,
                 dispatch: Dispatch::ShowMomentaryLayer(config, ReleaseKey::new(event, on_tap)),
-            },
+            }),
         }
     }
 
@@ -255,11 +263,11 @@ impl Keybinding {
         match keymap_override {
             Some(keymap_override) => Some(Self {
                 event: self.event,
-                action: KeybindingAction {
+                action: Cow::Owned(KeybindingAction {
                     name: keymap_override.description.into(),
                     dispatch: keymap_override.dispatch.clone(),
-                    ..self.action
-                },
+                    ..*self.action
+                }),
             }),
             None => {
                 if none_if_no_override {
@@ -381,6 +389,81 @@ impl Component for KeymapLegend {
     ) -> anyhow::Result<Dispatches> {
         self.editor.handle_key_event(context, event)
     }
+}
+
+// Useful to debug when you misstyped an action name.
+const ACTION_POSITION: (&'static str, u32) = (std::file!(), std::line!());
+const ACTIONS: &[KeybindingAction] = &[
+    KeybindingAction {
+        name: Cow::Borrowed("Replace all"),
+        documentation: None,
+        dispatch: Dispatch::Replace {
+            scope: Scope::Global,
+        },
+    },
+    KeybindingAction {
+        name: Cow::Borrowed("Force Save"),
+        documentation: None,
+        dispatch: Dispatch::ToEditor(DispatchEditor::ForceSave),
+    },
+    KeybindingAction {
+        name: Cow::Borrowed("Save All"),
+        documentation: None,
+        dispatch: Dispatch::SaveAll,
+    },
+    KeybindingAction {
+        name: Cow::Borrowed("Quit No Save"),
+        documentation: None,
+        dispatch: Dispatch::QuitNoSave,
+    },
+    KeybindingAction {
+        name: Cow::Borrowed("Quit"),
+        documentation: None,
+        dispatch: Dispatch::SafeQuit,
+    },
+    KeybindingAction {
+        name: Cow::Borrowed("Change Work Dir"),
+        documentation: None,
+        dispatch: Dispatch::OpenChangeWorkingDirectoryPrompt,
+    },
+    KeybindingAction {
+        name: Cow::Borrowed("Reload File"),
+        documentation: None,
+        dispatch: Dispatch::ToEditor(DispatchEditor::ReloadFile { force: false }),
+    },
+];
+
+pub const fn action(name: &str) -> &'static KeybindingAction {
+    let mut i = 0;
+    while i < ACTIONS.len() {
+        let action_name = match ACTIONS[i].name {
+            Cow::Borrowed(s) => s,
+            // We can't possibly own a string in a const context
+            Cow::Owned(_) => unreachable!(),
+        };
+        if const_str_eq(action_name, name) {
+            return &ACTIONS[i];
+        }
+        i += 1;
+    }
+
+    panic!("Tried to retrieve an action that doesn't exists.");
+}
+
+const fn const_str_eq(a: &str, b: &str) -> bool {
+    // Since retrieving the chars in not const we have to work with the bytes
+    let (a, b) = (a.as_bytes(), b.as_bytes());
+    if a.len() != b.len() {
+        return false;
+    }
+    let mut i = 0;
+    while i < a.len() {
+        if a[i] != b[i] {
+            return false;
+        }
+        i += 1;
+    }
+    true
 }
 
 #[cfg(test)]
