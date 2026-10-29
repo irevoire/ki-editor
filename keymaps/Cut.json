@@ -30,9 +30,9 @@
             { "normal": null, "alted": null, "shifted": null },
             { "normal": null, "alted": null, "shifted": null },
             { "normal": null, "alted": null, "shifted": null },
-            { "normal": "Replace Cut", "alted": null, "shifted": null },
             { "normal": null, "alted": null, "shifted": null },
             { "normal": null, "alted": null, "shifted": null },
+            { "normal": "Cut → Jump", "alted": null, "shifted": null },
             { "normal": null, "alted": null, "shifted": null },
             { "normal": null, "alted": null, "shifted": null },
             { "normal": null, "alted": null, "shifted": null }
@@ -45,6 +45,14 @@
                 ["q", "w", "e", "r", "t", "y", "u", "i", "o", "p"],
                 ["a", "s", "d", "f", "g", "h", "j", "k", "l", ";"],
                 ["z", "x", "c", "v", "b", "n", "m", ",", ".", "/"]
+            ]
+        },
+        {
+            "name": "QWERTZ",
+            "keys": [
+                ["q", "w", "e", "r", "t", "z", "u", "i", "o", "p"],
+                ["a", "s", "d", "f", "g", "h", "j", "k", "l", "ö"],
+                ["y", "x", "c", "v", "b", "n", "m", ",", ".", "-"]
             ]
         },
         {
@@ -117,6 +125,14 @@
                 ["p", "u", ":", ",", "q", "g", "c", "l", "m", "f"],
                 ["h", "i", "e", "a", "o", "d", "t", "r", "n", "s"],
                 ["k", "y", ".", "'", "x", "j", "v", "w", "b", "z"]
+            ]
+        },
+        {
+            "name": "ENTHIUM",
+            "keys": [
+                ["q", "y", "o", "u", "=", "x", "l", "d", "p", "z"],
+                ["c", "i", "a", "e", "-", "k", "h", "t", "n", "s"],
+                ["'", ",", ".", ";", "/", "j", "m", "g", "f", "v"]
             ]
         }
     ]

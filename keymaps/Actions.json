@@ -5,8 +5,8 @@
             { "normal": null, "alted": null, "shifted": null },
             { "normal": null, "alted": null, "shifted": null },
             { "normal": null, "alted": null, "shifted": null },
-            { "normal": null, "alted": null, "shifted": null },
-            { "normal": null, "alted": null, "shifted": "Raise" },
+            { "normal": "≡ Delete/Eat", "alted": null, "shifted": null },
+            { "normal": "≡ Swap", "alted": null, "shifted": null },
             { "normal": null, "alted": null, "shifted": "← Align" },
             { "normal": null, "alted": null, "shifted": null },
             { "normal": null, "alted": null, "shifted": "Join" },
@@ -17,8 +17,8 @@
             { "normal": null, "alted": null, "shifted": null },
             { "normal": null, "alted": null, "shifted": null },
             { "normal": null, "alted": null, "shifted": null },
-            { "normal": "≡ Insert", "alted": null, "shifted": "Change X" },
             { "normal": null, "alted": null, "shifted": "Transform" },
+            { "normal": "≡ Open", "alted": null, "shifted": "Change X" },
             { "normal": "← Insert", "alted": null, "shifted": null },
             { "normal": null, "alted": null, "shifted": "Dedent" },
             { "normal": null, "alted": null, "shifted": "Break" },
@@ -26,11 +26,15 @@
             { "normal": "Insert →", "alted": null, "shifted": null }
         ],
         [
-            { "normal": "Undo", "alted": null, "shifted": "Redo" },
+            {
+                "normal": "≡ Undo/Redo",
+                "alted": null,
+                "shifted": "Coarse Redo"
+            },
             { "normal": "≡ Cut", "alted": null, "shifted": null },
-            { "normal": "≡ Copy", "alted": null, "shifted": null },
-            { "normal": "≡ Delete", "alted": null, "shifted": null },
+            { "normal": "Copy/≡ Dup", "alted": null, "shifted": null },
             { "normal": "≡ Paste", "alted": null, "shifted": null },
+            { "normal": "≡ Multi-cursor", "alted": null, "shifted": null },
             { "normal": null, "alted": null, "shifted": null },
             { "normal": null, "alted": null, "shifted": null },
             { "normal": null, "alted": null, "shifted": null },
@@ -45,6 +49,14 @@
                 ["q", "w", "e", "r", "t", "y", "u", "i", "o", "p"],
                 ["a", "s", "d", "f", "g", "h", "j", "k", "l", ";"],
                 ["z", "x", "c", "v", "b", "n", "m", ",", ".", "/"]
+            ]
+        },
+        {
+            "name": "QWERTZ",
+            "keys": [
+                ["q", "w", "e", "r", "t", "z", "u", "i", "o", "p"],
+                ["a", "s", "d", "f", "g", "h", "j", "k", "l", "ö"],
+                ["y", "x", "c", "v", "b", "n", "m", ",", ".", "-"]
             ]
         },
         {
@@ -117,6 +129,14 @@
                 ["p", "u", ":", ",", "q", "g", "c", "l", "m", "f"],
                 ["h", "i", "e", "a", "o", "d", "t", "r", "n", "s"],
                 ["k", "y", ".", "'", "x", "j", "v", "w", "b", "z"]
+            ]
+        },
+        {
+            "name": "ENTHIUM",
+            "keys": [
+                ["q", "y", "o", "u", "=", "x", "l", "d", "p", "z"],
+                ["c", "i", "a", "e", "-", "k", "h", "t", "n", "s"],
+                ["'", ",", ".", ";", "/", "j", "m", "g", "f", "v"]
             ]
         }
     ]

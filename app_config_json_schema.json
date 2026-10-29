@@ -22,6 +22,10 @@
             },
             "default": {}
         },
+        "icon_style": {
+            "$ref": "#/$defs/IconStyle",
+            "default": "emoji"
+        },
         "indent_char": {
             "$ref": "#/$defs/IndentChar"
         },
@@ -42,6 +46,9 @@
         "leader_keymap": {
             "$ref": "#/$defs/LeaderKeymap"
         },
+        "show_key_in_keymap": {
+            "type": "boolean"
+        },
         "status_lines": {
             "type": "array",
             "items": {
@@ -60,7 +67,8 @@
         "status_lines",
         "leader_keymap",
         "indent_char",
-        "indent_width"
+        "indent_width",
+        "show_key_in_keymap"
     ],
     "$defs": {
         "CargoLinkedTreesitterLanguage": {
@@ -76,22 +84,31 @@
                 "OCamlInterface",
                 "Rust",
                 "Graphql",
+                "Gnuplot",
+                "Java",
                 "Javascript",
+                "QmlJs",
+                "QmlDir",
                 "JSX",
                 "Svelte",
                 "JSON",
                 "YAML",
                 "HTML",
                 "XML",
+                "Kdl",
                 "Zig",
                 "Markdown",
                 "Go",
                 "Lua",
+                "JjDescription",
                 "Gleam",
                 "Bash",
+                "Zsh",
                 "C",
+                "Make",
                 "CPP",
                 "CSS",
+                "Scss",
                 "Ruby",
                 "Nix",
                 "Fish",
@@ -108,7 +125,21 @@
                 "CSharp",
                 "Clojure",
                 "FSharp",
-                "Scala"
+                "Scala",
+                "Glsl",
+                "Devicetree",
+                "Just",
+                "Roc",
+                "Idris",
+                "Sql",
+                "Dockerfile",
+                "Gitattributes",
+                "Gitcommit",
+                "Rescript",
+                "Typst",
+                "Php",
+                "Gherkin",
+                "Wit"
             ]
         },
         "Command": {
@@ -177,6 +208,26 @@
                 }
             ]
         },
+        "IconStyle": {
+            "description": "Controls which icon set is used throughout the UI.",
+            "oneOf": [
+                {
+                    "description": "Emoji icons (default). No special font required.",
+                    "type": "string",
+                    "const": "emoji"
+                },
+                {
+                    "description": "Nerd Font icons. Requires a Nerd Font (<https://www.nerdfonts.com/>) to be installed.",
+                    "type": "string",
+                    "const": "nerd-font"
+                },
+                {
+                    "description": "Disable icons entirely.",
+                    "type": "string",
+                    "const": "none"
+                }
+            ]
+        },
         "IndentChar": {
             "type": "string",
             "enum": ["space", "tab"]
@@ -235,6 +286,18 @@
                             "type": "null"
                         }
                     ]
+                },
+                "injected_languages": {
+                    "description": "Language configuration keys needed by the injection query.",
+                    "type": "array",
+                    "default": [],
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "injection_query": {
+                    "description": "Tree-sitter query describing embedded language regions.",
+                    "type": ["string", "null"]
                 },
                 "line_comment_prefix": {
                     "type": ["string", "null"],
@@ -304,6 +367,14 @@
             "properties": {
                 "command": {
                     "$ref": "#/$defs/Command"
+                },
+                "environment": {
+                    "description": "Environment variables to set when spawning the LSP process.\nExample: `{ \"CARGO_TARGET_DIR\": \"target/analyzer\" }`",
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    },
+                    "default": {}
                 },
                 "initialization_options": true
             },

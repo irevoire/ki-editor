@@ -4,9 +4,9 @@
         [
             { "normal": "≡ Move Hist", "alted": null, "shifted": null },
             { "normal": "SUBWORD", "alted": null, "shifted": "CHAR" },
-            { "normal": "≡ Buffer", "alted": null, "shifted": null },
-            { "normal": "≡ Multi-cursor", "alted": null, "shifted": null },
-            { "normal": "≡ Swap", "alted": null, "shifted": "Raise" },
+            { "normal": "≡ Buffer", "alted": null, "shifted": "PARAGRAPH" },
+            { "normal": "≡ Delete/Eat", "alted": null, "shifted": null },
+            { "normal": "≡ Swap", "alted": null, "shifted": null },
             { "normal": "|<", "alted": null, "shifted": "← Align" },
             { "normal": "<", "alted": null, "shifted": null },
             { "normal": "^", "alted": "Scroll ↑", "shifted": "Join" },
@@ -17,8 +17,8 @@
             { "normal": "LINE", "alted": null, "shifted": "LINE*" },
             { "normal": "WORD", "alted": null, "shifted": "WORD*" },
             { "normal": "NODE", "alted": null, "shifted": "NODE*" },
-            { "normal": "≡ Insert", "alted": null, "shifted": "Change X" },
             { "normal": null, "alted": null, "shifted": "Transform" },
+            { "normal": "≡ Open", "alted": null, "shifted": "Change X" },
             { "normal": "← Insert", "alted": null, "shifted": null },
             { "normal": "<<", "alted": null, "shifted": "Dedent" },
             { "normal": "v", "alted": "Scroll ↓", "shifted": "Break" },
@@ -26,16 +26,20 @@
             { "normal": "Insert →", "alted": "⇋ Align View", "shifted": null }
         ],
         [
-            { "normal": "Undo", "alted": null, "shifted": "Redo" },
+            {
+                "normal": "≡ Undo/Redo",
+                "alted": null,
+                "shifted": "Coarse Redo"
+            },
             { "normal": "≡ Cut", "alted": null, "shifted": null },
-            { "normal": "≡ Copy", "alted": null, "shifted": null },
-            { "normal": "≡ Delete", "alted": null, "shifted": null },
+            { "normal": "Copy/≡ Dup", "alted": null, "shifted": null },
             { "normal": "≡ Paste", "alted": null, "shifted": null },
+            { "normal": "≡ Multi-cursor", "alted": null, "shifted": null },
             { "normal": "⚲ Local", "alted": null, "shifted": null },
             { "normal": "Jump", "alted": null, "shifted": "Index" },
             { "normal": "Surround", "alted": null, "shifted": null },
             { "normal": "Parent Line", "alted": null, "shifted": null },
-            { "normal": "⇋ Curs", "alted": "⇋ Window", "shifted": "⇋ Anchor" }
+            { "normal": "⇋ Curs", "alted": "⇋ Window", "shifted": null }
         ]
     ],
     "keyboard_layouts": [
@@ -45,6 +49,14 @@
                 ["q", "w", "e", "r", "t", "y", "u", "i", "o", "p"],
                 ["a", "s", "d", "f", "g", "h", "j", "k", "l", ";"],
                 ["z", "x", "c", "v", "b", "n", "m", ",", ".", "/"]
+            ]
+        },
+        {
+            "name": "QWERTZ",
+            "keys": [
+                ["q", "w", "e", "r", "t", "z", "u", "i", "o", "p"],
+                ["a", "s", "d", "f", "g", "h", "j", "k", "l", "ö"],
+                ["y", "x", "c", "v", "b", "n", "m", ",", ".", "-"]
             ]
         },
         {
@@ -117,6 +129,14 @@
                 ["p", "u", ":", ",", "q", "g", "c", "l", "m", "f"],
                 ["h", "i", "e", "a", "o", "d", "t", "r", "n", "s"],
                 ["k", "y", ".", "'", "x", "j", "v", "w", "b", "z"]
+            ]
+        },
+        {
+            "name": "ENTHIUM",
+            "keys": [
+                ["q", "y", "o", "u", "=", "x", "l", "d", "p", "z"],
+                ["c", "i", "a", "e", "-", "k", "h", "t", "n", "s"],
+                ["'", ",", ".", ";", "/", "j", "m", "g", "f", "v"]
             ]
         }
     ]
